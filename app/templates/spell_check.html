@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Spell Checker</h1>
+    <form action="" method="post" novalidate> <!-- action attribute tells the browser the URL is used when submitting info the user enters-->
+        <!-- method says which http method to use, default is get -->
+        {{ form.hidden_tag() }} <!--CSRF protection, includes a token from the SECRET_KEY variable used by flask-wtf -->
+        <p id="inputtext">
+            {{ form.spellcheck.label }}<br>
+            {{ form.spellcheck(size=32)}}<br>
+            {% for error in form.spellcheck.errors %}
+                <span style="color: darkred;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+        <h2>Mispelled List</h2>
+        <p id="textout">{{ userwords }}</p>
+	    <p id="misspelled">{{ misspelled }}</p>
+{% endblock %}

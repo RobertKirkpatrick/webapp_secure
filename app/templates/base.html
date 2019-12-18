@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      {% if title %}
+      <title>{{ title }} - APPSEC</title>
+      {% else %}
+      <title>Welcome to APPSEC SpellCheck</title>
+      {% endif %}
+</head>
+<body>
+        <div>RK3505 APPSEC SpellCheck:
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if current_user.is_anonymous %}
+                <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
+                <a href="{{ url_for('spell_check') }}">Spell Check</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+        <hr>
+        {% block content %}{% endblock %}
+
+</body>
+</html>

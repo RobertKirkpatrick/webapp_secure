@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+<!-- use the base.html and extend on it -->
+{% block content %}
+    <h1>Signin</h1>
+    <form action="" method="post" novalidate> <!-- action attribute tells the browser the URL is used when submitting info the user enters-->
+        <!-- method says which http method to use, default is get -->
+        {{ form.hidden_tag() }} <!--CSRF protection, includes a token from the SECRET_KEY variable used by flask-wtf -->
+        <p id="uname">
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+            {% for error in form.username.errors %}
+            <span style="color: darkred;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p id="pword">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+            {% for error in form.password.errors %}
+            <span style="color: yellowgreen;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p id="2fa">
+            {{ form.twofact.label }}<br>
+            {{ form.twofact(size=11) }}
+            {% for error in form.twofact.errors %}
+            <span style="color: yellowgreen;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+    <h3>Login Status is: {{ login_message }}!</h3>
+    <h3>Hi, {{ current_user.username }}!</h3>
+    <p id="result">{{ result }}</p>
+{% endblock %}
